@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>1:1 复刻威利斯吉普车 · 产品介绍</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23182B1E'/%3E%3Crect x='10' y='20' width='30' height='20' rx='3' fill='none' stroke='%23C2A05C' stroke-width='4'/%3E%3Cpath d='M40 25h10v10H40z' fill='none' stroke='%23C2A05C' stroke-width='3'/%3E%3Ccircle cx='38' cy='30' r='4' fill='%23D9C79D'/%3E%3Crect x='10' y='46' width='44' height='3' rx='1.5' fill='%23C2A05C'/%3E%3C/svg%3E">
+<style>
+/* ===== 基础 ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --paper:#F2E8D0;
+  --paper-deep:#E7D9B8;
+  --paper-glow:#FBF4E2;
+  --ink:#20352A;
+  --ink-soft:#51634F;
+  --ink-faint:#7C8874;
+  --olive:#2E4A36;
+  --olive-deep:#182B1E;
+  --olive-ink:#0F1E14;
+  --gold:#C2A05C;
+  --gold-soft:#D9BC7E;
+  --sand:#D9C79D;
+  --line:rgba(32,53,42,.16);
+  --line-soft:rgba(32,53,42,.10);
+  --shadow-book:0 24px 60px rgba(0,0,0,.55), 0 4px 14px rgba(0,0,0,.35);
+}
+html,body{height:100%}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,sans-serif;
+  background:#0E1A12;
+  color:var(--ink);
+  overflow:hidden;
+  position:fixed;
+  inset:0;
+  width:100%;
+  -webkit-font-smoothing:antialiased;
+  user-select:none;
+  -webkit-user-select:none;
+}
+img{display:block;max-width:100%}
+
+/* ===== 背景 ===== */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 50% 8%, rgba(70,104,74,.28), transparent 60%),
+    radial-gradient(90% 80% at 15% 100%, rgba(110,79,51,.22), transparent 55%),
+    linear-gradient(160deg, #0F1E14 0%, #1A2E1F 48%, #0E1A12 100%);
+}
+.bg::after{content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(217,199,157,.07) 1px, transparent 1.4px);
+  background-size:34px 34px;
+}
+#dust{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+
+/* ===== 顶部栏 ===== */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:calc(8px + env(safe-area-inset-top)) 14px 8px;
+  pointer-events:none;
+}
+.topbar .brand{
+  display:flex;align-items:center;gap:8px;pointer-events:auto;
+  background:rgba(15,30,20,.55);border:1px solid rgba(194,160,92,.35);
+  border-radius:999px;padding:6px 12px;color:#EFE4CB;
+  font-size:12px;letter-spacing:.06em;backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.topbar .brand svg{width:16px;height:16px;flex:none}
+.topbar .chap{
+  font-size:12px;color:#D9C79D;letter-spacing:.14em;
+  background:rgba(15,30,20,.55);border:1px solid rgba(194,160,92,.28);
+  padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);white-space:nowrap;
+}
+@media (min-width:768px){
+  .topbar{padding:16px 28px}
+  .topbar .brand{font-size:13px}
+  .topbar .chap{font-size:13px}
+}
+
+/* ===== 舞台与书 ===== */
+.stage{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;
+  padding:46px 12px calc(54px + env(safe-area-inset-bottom));}
+.book-wrap{position:relative;--pw:min(92vw, 400px);width:var(--pw);height:calc(var(--pw) * 4 / 3);}
+.book{position:relative;width:100%;height:100%;perspective:2600px;}
+
+/* ===== 书页 ===== */
+.page{
+  position:absolute;inset:0;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transform-origin:left center;
+  transition:transform .72s cubic-bezier(.4,.1,.25,1);
+  border-radius:2px 10px 10px 2px;
+  box-shadow:0 0 0 rgba(0,0,0,0);
+  z-index:1;
+}
+.page .face{
+  position:absolute;inset:0;border-radius:2px 10px 10px 2px;
+  overflow:hidden;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  display:flex;flex-direction:column;
+}
+.page .front{background:var(--paper);color:var(--ink)}
+.page .back{
+  transform:rotateY(180deg);
+  background:
+    radial-gradient(140% 120% at 85% 12%, rgba(194,160,92,.10), transparent 55%),
+    linear-gradient(160deg, var(--paper) 0%, var(--paper-deep) 100%);
+  color:var(--ink-faint);
+}
+.page .back .bmark{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;
+  font-size:11px;letter-spacing:.4em;color:rgba(32,53,42,.35);
+}
+.page .back .bmark .w{font-size:26px;color:rgba(32,53,42,.22);letter-spacing:.1em}
+.page .back::before{content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(32,53,42,.10) 1px, transparent 1.4px);
+  background-size:26px 26px;}
+.page .back::after{content:"";position:absolute;top:0;right:0;bottom:0;width:26px;
+  background:linear-gradient(to left, rgba(32,53,42,.10), transparent);}
+
+/* 翻页过程中的动态阴影 */
+.page.flip-shadow::after{content:"";position:absolute;inset:0;border-radius:2px 10px 10px 2px;
+  background:linear-gradient(to right, rgba(0,0,0,.5) 0%, rgba(0,0,0,.18) 26%, transparent 62%);
+  z-index:5;pointer-events:none;
+  animation:pageShade .72s ease-out forwards;}
+@keyframes pageShade{
+  0%{opacity:0}
+  22%{opacity:1}
+  78%{opacity:1}
+  100%{opacity:0}
+}
+
+.page.active{z-index:2}
+.page.turned{z-index:1;transform:rotateY(-178deg);pointer-events:none;box-shadow:none}
+.page.turned .front{filter:saturate(.92) brightness(.97)}
+.page.turning{z-index:40}
+
+/* ===== 页面通用排版 ===== */
+.pad{padding:26px 24px 22px;height:100%;display:flex;flex-direction:column;gap:0}
+.sec-tag{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.22em;color:var(--gold);font-weight:600}
+.sec-tag::before{content:"";width:22px;height:1px;background:var(--gold)}
+.sec-tag .en{color:var(--ink-faint);letter-spacing:.12em;font-weight:400}
+.h1{font-size:25px;font-weight:800;line-height:1.28;letter-spacing:.01em;margin:10px 0 0;color:var(--ink)}
+.h1 em{font-style:normal;color:var(--olive)}
+.h2{font-size:18px;font-weight:700;line-height:1.32;margin:14px 0 4px;color:var(--ink)}
+.lead{font-size:13px;line-height:1.75;color:var(--ink-soft);margin-top:8px}
+.lead b{color:var(--ink);font-weight:700}
+.pfoot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;
+  font-size:10px;letter-spacing:.16em;color:var(--ink-faint);padding-top:10px}
+.pfoot .pn{font-family:"Songti SC","STSong",serif;font-size:12px;letter-spacing:.08em}
+.page.dark .sec-tag{color:var(--gold-soft)}
+.page.dark .sec-tag::before{background:var(--gold-soft)}
+.page.dark .sec-tag .en{color:rgba(233,223,198,.55)}
+.page.dark .h1,.page.dark .h2{color:#F1E8D2}
+.page.dark .lead{color:rgba(241,232,210,.82)}
+.page.dark .lead b{color:#F8F1DE}
+.page.dark .pfoot{color:rgba(233,223,198,.5)}
+
+/* 图片 */
+.im{position:relative;border-radius:6px;overflow:hidden;background:var(--paper-deep)}
+.im img{width:100%;height:100%;object-fit:cover}
+.im .cap{position:absolute;left:0;right:0;bottom:0;padding:14px 10px 7px;font-size:10px;letter-spacing:.08em;color:#F1E8D2;
+  background:linear-gradient(to top, rgba(10,20,13,.72), transparent)}
+
+/* 要点块 */
+.pts{margin-top:12px;display:flex;flex-direction:column;gap:0}
+.pt{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
+.pt:last-child{border-bottom:none}
+.pt .no{flex:none;font-family:"Songti SC",serif;font-size:12px;color:var(--gold);width:22px}
+.pt .tx b{display:block;font-size:14px;font-weight:700;color:var(--ink);line-height:1.4}
+.pt .tx span{font-size:11.5px;color:var(--ink-soft);line-height:1.55;display:block;margin-top:1px}
+.page.dark .pt .tx b{color:#F1E8D2}
+.page.dark .pt .tx span{color:rgba(241,232,210,.75)}
+.page.dark .pt{border-bottom-color:rgba(241,232,210,.12)}
+
+/* 指标卡 */
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.metric{background:rgba(46,74,54,.06);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.metric .k{font-size:10.5px;letter-spacing:.1em;color:var(--ink-faint)}
+.metric .v{font-size:17px;font-weight:800;color:var(--olive);margin-top:3px;letter-spacing:.01em}
+.metric .v small{font-size:10.5px;font-weight:500;color:var(--ink-faint);margin-left:3px}
+.page.dark .metric{background:rgba(241,232,210,.05);border-color:rgba(241,232,210,.14)}
+.page.dark .metric .k{color:rgba(233,223,198,.55)}
+.page.dark .metric .v{color:var(--gold-soft)}
+.page.dark .metric .v small{color:rgba(233,223,198,.5)}
+
+/* 表格 */
+.tbl{width:100%;margin-top:12px;border-collapse:collapse;table-layout:fixed;font-size:11.5px}
+.tbl th{font-size:10.5px;letter-spacing:.06em;color:var(--ink-faint);font-weight:600;text-align:left;
+  padding:6px 6px 5px;border-bottom:1.5px solid var(--ink)}
+.tbl td{padding:6px;vertical-align:top;line-height:1.42;border-bottom:1px solid var(--line-soft);color:var(--ink-soft)}
+.tbl td b{color:var(--ink);font-weight:700}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td .c{font-size:10px;color:var(--ink-faint);display:block;letter-spacing:.04em}
+.page.dark .tbl th{color:rgba(233,223,198,.55);border-bottom-color:#E9DFC6}
+.page.dark .tbl td{color:rgba(241,232,210,.8);border-bottom-color:rgba(241,232,210,.12)}
+.page.dark .tbl td b{color:#F8F1DE}
+.page.dark .tbl td .c{color:rgba(233,223,198,.5)}
+
+/* 标签行 */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:10.5px;letter-spacing:.04em;color:var(--olive);border:1px solid rgba(46,74,54,.4);
+  border-radius:999px;padding:3px 9px;background:rgba(46,74,54,.05)}
+.page.dark .tag{color:#E9DFC6;border-color:rgba(233,223,198,.35);background:rgba(233,223,198,.06)}
+
+/* 双栏 */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.col .ct{font-size:12px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.col .ct i{width:5px;height:5px;background:var(--gold);border-radius:50%;flex:none}
+.col .cl{font-size:11px;color:var(--ink-soft);line-height:1.6}
+.page.dark .col .ct{color:#F1E8D2}
+.page.dark .col .cl{color:rgba(241,232,210,.75)}
+
+/* 图廊 */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.gal .g{position:relative;border-radius:5px;overflow:hidden;aspect-ratio:1/1;background:var(--paper-deep)}
+.gal .g img{width:100%;height:100%;object-fit:cover}
+.gal .g span{position:absolute;left:0;right:0;bottom:0;padding:12px 5px 4px;font-size:9.5px;letter-spacing:.02em;
+  color:#F1E8D2;background:linear-gradient(to top, rgba(10,20,13,.7), transparent);text-align:center;line-height:1.3}
+.gal .g.tall{aspect-ratio:auto}
+.two .im{aspect-ratio:4/3}
+.sqrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.sqrow .im{aspect-ratio:4/3}
+
+/* 步骤 */
+.steps{margin-top:12px;display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:center}
+.step:last-child{border-bottom:none}
+.step .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--olive);color:#EFE4CB;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.step .s b{display:block;font-size:14px;font-weight:700;color:var(--ink)}
+.step .s span{font-size:10.5px;color:var(--ink-faint);letter-spacing:.1em}
+.page.dark .step .s b{color:#F1E8D2}
+
+/* QA */
+.qa{margin-top:8px;display:flex;flex-direction:column;gap:0}
+.qa .q{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid var(--line-soft)}
+.qa .q:last-child{border-bottom:none}
+.qa .q .m{flex:none;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;color:#EFE4CB;background:var(--olive)}
+.qa .q .t b{display:block;font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.4}
+.qa .q .t p{font-size:11.5px;color:var(--ink-soft);line-height:1.62;margin-top:3px}
+
+/* 封面 */
+.cover .front{
+  background:
+    linear-gradient(180deg, rgba(15,30,20,.12) 0%, rgba(15,30,20,.55) 78%, rgba(9,18,12,.92) 100%),
+    url("assets/p01_x4328.jpg") center 30%/cover no-repeat;
+}
+.cover .front::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(120% 60% at 50% 108%, rgba(15,30,20,.85), transparent 55%)}
+.cover .pad{color:#F1E8D2;justify-content:flex-end}
+.cover .k{font-size:11px;letter-spacing:.5em;color:var(--gold-soft);opacity:0;animation:fadeUp .9s .25s ease forwards}
+.cover .t{font-size:33px;font-weight:900;line-height:1.18;letter-spacing:.05em;margin-top:8px;
+  color:#F8F1DE;opacity:0;animation:fadeUp .9s .5s ease forwards;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.cover .t small{display:block;font-size:16px;font-weight:700;letter-spacing:.28em;margin-top:7px;color:var(--gold-soft)}
+.cover .s{font-size:12px;letter-spacing:.2em;color:#E9DFC6;margin-top:10px;opacity:0;animation:fadeUp .9s .72s ease forwards}
+.cover .pfoot{color:rgba(233,223,198,.6);opacity:0;animation:fadeUp .9s .9s ease forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* 目录 */
+.contents .front{background:
+  radial-gradient(130% 90% at 15% 8%, rgba(194,160,92,.12), transparent 55%),
+  linear-gradient(165deg, var(--paper-glow) 0%, var(--paper) 45%, var(--paper-deep) 100%)}
+.toc{margin-top:14px;display:flex;flex-direction:column;gap:2px}
+.toc-item{display:flex;align-items:center;gap:13px;padding:11px 10px;border-radius:6px;cursor:pointer;
+  border:1px solid transparent;transition:background .2s,border-color .2s}
+.toc-item:active{background:rgba(46,74,54,.09)}
+.toc-item .num{font-family:"Songti SC",serif;font-size:15px;color:var(--gold);font-weight:700;width:34px;flex:none}
+.toc-item .txt b{display:block;font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+.toc-item .txt span{font-size:10.5px;color:var(--ink-faint);letter-spacing:.06em}
+.toc-item .go{margin-left:auto;color:var(--ink-faint);font-size:14px}
+@media (hover:hover){
+  .toc-item:hover{background:rgba(46,74,54,.06);border-color:var(--line-soft)}
+}
+
+/* 深色页 */
+.dark{color:#F1E8D2}
+.dark .front{background:
+  radial-gradient(120% 80% at 85% 0%, rgba(194,160,92,.10), transparent 55%),
+  linear-gradient(165deg, #20382A 0%, var(--olive-deep) 62%, #14261A 100%)}
+.dark .back{background:linear-gradient(165deg, #243C2E, #16281C)}
+
+/* 封底 */
+.end .front{background:
+  radial-gradient(120% 70% at 50% 0%, rgba(194,160,92,.14), transparent 55%),
+  linear-gradient(165deg, #20382A 0%, var(--olive-deep) 60%, #101F15 100%)}
+.end .pad{justify-content:center;text-align:center;align-items:center;color:#F1E8D2}
+.end .e-logo{font-size:12px;letter-spacing:.42em;color:var(--gold-soft);margin-bottom:14px}
+.end .e-t{font-size:24px;font-weight:800;line-height:1.4;letter-spacing:.06em}
+.end .e-s{font-size:13px;letter-spacing:.1em;color:var(--gold-soft);margin-top:10px}
+.end .contact-box{margin-top:22px;width:100%;border:1px solid rgba(194,160,92,.4);border-radius:8px;padding:16px 14px;
+  background:rgba(15,30,20,.45);display:flex;flex-direction:column;gap:9px;text-align:left}
+.end .contact-box .row{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.6;color:#EFE4CB}
+.end .contact-box .row span{flex:1;min-width:0}
+.end .contact-box .row svg{flex:none;width:15px;height:15px;margin-top:2px;stroke:var(--gold-soft)}
+.end .contact-box .row b{color:var(--gold-soft);font-weight:600;margin-right:2px}
+.end .e-foot{font-size:8.5px;letter-spacing:.14em;color:rgba(233,223,198,.55);margin-top:20px;line-height:1.6}
+
+/* ===== 底部控制 ===== */
+.controls{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  padding:0 16px calc(10px + env(safe-area-inset-bottom));
+  pointer-events:none;
+}
+.controls .bar{display:flex;align-items:center;gap:12px;
+  background:rgba(15,30,20,.6);border:1px solid rgba(194,160,92,.3);
+  border-radius:999px;padding:7px 14px;max-width:420px;margin:0 auto;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.controls .info{display:flex;align-items:center;gap:9px;min-width:0}
+.controls .pageno{font-size:12px;color:#EFE4CB;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.controls .pageno i{font-style:normal;color:rgba(233,223,198,.5);font-weight:400}
+.controls .track{flex:1;height:3px;border-radius:2px;background:rgba(233,223,198,.22);overflow:hidden}
+.controls .track i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-soft));border-radius:2px;transition:width .35s}
+.controls .btn{
+  pointer-events:auto;flex:none;width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(194,160,92,.45);background:rgba(15,30,20,.4);color:#EFE4CB;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,transform .1s}
+.controls .btn:active{transform:scale(.92);background:rgba(194,160,92,.25)}
+.controls .btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.controls .btn:disabled{opacity:.3;pointer-events:none}
+
+/* 颜色定制 */
+.ci{display:flex;flex-direction:column;align-items:center;gap:4px;width:46px}
+.ci i{width:30px;height:30px;border-radius:50%;border:2px solid rgba(32,53,42,.22);display:block;box-shadow:inset 0 -3px 6px rgba(0,0,0,.18)}
+.ci span{font-size:9px;color:var(--ink-faint);letter-spacing:.02em;white-space:nowrap}
+.page.dark .ci i{border-color:rgba(241,232,210,.35)}
+.page.dark .ci span{color:rgba(233,223,198,.6)}
+
+/* 开场提示 */
+.hint{
+  position:fixed;left:50%;bottom:calc(16% + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  color:#EFE4CB;font-size:13px;letter-spacing:.2em;
+  transition:opacity .6s,visibility .6s;
+}
+.hint .ring{width:54px;height:54px;border-radius:50%;border:1.5px solid rgba(194,160,92,.6);
+  display:flex;align-items:center;justify-content:center;animation:breathe 1.8s ease-in-out infinite}
+.hint .ring svg{width:20px;height:20px;stroke:var(--gold-soft);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+@keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(194,160,92,.25)}
+  50%{transform:scale(1.08);box-shadow:0 0 0 14px rgba(194,160,92,0)}}
+.hint.hide{opacity:0;visibility:hidden}
+
+/* 减少动效 */
+@media (prefers-reduced-motion: reduce){
+  .page{transition-duration:.3s}
+  .cover .k,.cover .t,.cover .s,.cover .pfoot{animation:none;opacity:1}
+  .hint .ring{animation:none}
+  #dust{display:none}
+}
+
+/* 桌面 */
+@media (min-width:768px){
+  .stage{padding:64px 20px 70px}
+  .book-wrap{--pw:min(44vh, 430px)}
+  .pad{padding:32px 30px 26px}
+  .h1{font-size:29px}
+  .h2{font-size:19px}
+  .lead{font-size:13.5px}
+  .toc-item{padding:12px 12px}
+  .toc-item .num{font-size:16px}
+  .toc-item .txt b{font-size:16px}
+  .controls .bar{padding:9px 16px}
+  .controls .btn{width:38px;height:38px}
+}
+</style>
+</head>
+<body>
+<!-- ===== 视图：翻书页面 ===== -->
+<canvas id="dust"></canvas>
+<div class="bg"></div>
+
+<div class="topbar">
+  <div class="brand" id="brandBtn" role="button" aria-label="返回封面">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M7 6h11a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H7M4 8l3 4-3 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>WILLYS 1941</span>
+  </div>
+  <div class="chap" id="chapLabel">封面 · COVER</div>
+</div>
+
+<div class="stage">
+  <div class="book-wrap" id="bookWrap">
+    <div class="book" id="book">
+
+      <!-- ===== 第1页 封面 ===== -->
+      <section class="page cover" data-i="0">
+        <div class="face front">
+          <div class="pad">
+            <div class="k">SINCE 1941 · 四通文化创意工厂</div>
+            <div class="t">1:1 复刻<small>威利斯吉普车系列</small></div>
+            <div class="s">CLASSIC REBORN · 经典重生</div>
+            <div class="pfoot"><span>1:1 SCALE WILLYS JEEP SERIES</span><span class="pn">Ⅰ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第2页 目录 ===== -->
+      <section class="page contents" data-i="1">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">目录 <span class="en">CONTENTS</span></div>
+            <h1 class="h1" style="margin-top:12px">一本翻得完的<br>军车图鉴</h1>
+            <div class="toc">
+              <div class="toc-item" role="button" tabindex="0" data-go="3"><span class="num">01</span><span class="txt"><b>经典传承</b><span>威利斯的传奇历史与情怀价值</span></span><span class="go">→</span></div>
+              <div class="toc-item" role="button" tabindex="0" data-go="4"><span class="num">02</span><span class="txt"><b>产品概览</b><span>1:1 真复刻，全矩阵动力版本</span></span><span class="go">→</span></div>
+              <div class="toc-item" role="button" tabindex="0" data-go="7"><span class="num">03</span><span class="txt"><b>版本详解</b><span>六大版本按需选择，总有一款适合你</span></span><span class="go">→</span></div>
+              <div class="toc-item" role="button" tabindex="0" data-go="13"><span class="num">04</span><span class="txt"><b>工艺品质</b><span>细节工艺、配置定制与品质保障</span></span><span class="go">→</span></div>
+              <div class="toc-item" role="button" tabindex="0" data-go="17"><span class="num">05</span><span class="txt"><b>购车指南</b><span>价格区间、购车流程与常见问题</span></span><span class="go">→</span></div>
+              <div class="toc-item" role="button" tabindex="0" data-go="19"><span class="num">06</span><span class="txt"><b>联系我们</b><span>咨询渠道与展厅地址</span></span><span class="go">→</span></div>
+            </div>
+            <div class="pfoot"><span>轻触左右两侧或滑动翻页</span><span class="pn">Ⅱ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第3页 经典传承 ===== -->
+      <section class="page" data-i="2">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">01 · 经典传承 <span class="en">HERITAGE</span></div>
+            <h1 class="h1">越野车鼻祖的<br>传奇历史</h1>
+            <div class="im" style="height:112px;margin-top:10px"><img src="assets/p01_x4311.jpg" alt="二战时期士兵推动威利斯吉普的历史照片"><span class="cap">二战时期 · 威利斯 MB 军用吉普</span></div>
+            <p class="lead" style="margin-top:9px">二战时期，威利斯MB成为美军制式军车，以<b>坚固耐用、结构简单、越野能力强悍</b>，成为盟军赢得战争的重要伙伴。战后演变为现代SUV雏形，全球累计生产数百万辆。</p>
+            <p class="lead" style="margin-top:6px">在中国，它同样承载着几代人的情怀——解放战争时期我军缴获使用威利斯执行任务，其设计理念深刻影响了后来的<b>北京212</b>等经典国产越野车。</p>
+            <div class="metrics" style="margin-top:9px">
+              <div class="metric"><div class="k">经典车型历史传承</div><div class="v">85<small>年经典</small></div></div>
+              <div class="metric"><div class="k">我们的复刻尺寸比例</div><div class="v">1:1<small>原尺寸</small></div></div>
+            </div>
+            <div class="pfoot"><span>用现代工艺，还原跨越时代的经典</span><span class="pn">Ⅲ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第4页 产品概览 ===== -->
+      <section class="page" data-i="3">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">02 · 产品概览 <span class="en">OVERVIEW</span></div>
+            <h1 class="h1">1:1 真尺寸复刻，<br>不是玩具车</h1>
+            <div class="metrics" style="margin-top:11px">
+              <div class="metric"><div class="k">车身尺寸 / DIMENSIONS</div><div class="v">3.4 × 1.6 × 1.77<small>m</small></div></div>
+              <div class="metric"><div class="k">外观造型 / EXTERIOR</div><div class="v">逐细节 1:1<small>还原</small></div></div>
+            </div>
+            <p class="lead" style="margin-top:8px">与原版威利斯MB尺寸完全一致，真车大小；对照原厂图纸，<b>每一处铆钉、线条都精准复刻</b>。</p>
+            <p class="lead" style="margin-top:5px">动力可选：<b>六大版本全覆盖</b></p>
+            <div class="tags" style="margin-top:6px">
+              <span class="tag">纯电后驱</span><span class="tag">油电两用</span><span class="tag">纯燃油后驱</span><span class="tag">纯燃油四驱</span><span class="tag">静态展示</span>
+            </div>
+            <div class="sqrow" style="margin-top:9px">
+              <div class="im"><img src="assets/p01_x4303.jpg" alt="威利斯吉普车前视角"></div>
+              <div class="im"><img src="assets/p01_x4297.jpg" alt="威利斯吉普车后视角"></div>
+            </div>
+            <div class="pfoot"><span>真车比例，真车质感——握上方向盘，仿佛穿越时空</span><span class="pn">Ⅳ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第5页 外观细节 ===== -->
+      <section class="page" data-i="4">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">02 · 外观细节 <span class="en">EXTERIOR DETAILS</span></div>
+            <h1 class="h1">还原每一处经典</h1>
+            <div class="gal" style="margin-top:10px">
+              <div class="g"><img src="assets/p01_x4334.jpg" alt="九孔进气格栅"><span>九孔进气格栅</span></div>
+              <div class="g"><img src="assets/p01_x4312.jpg" alt="圆形大灯组"><span>圆形大灯组</span></div>
+              <div class="g"><img src="assets/p01_x4319.jpg" alt="平直车身线条"><span>平直车身线条</span></div>
+              <div class="g"><img src="assets/p01_x4326.jpg" alt="外露固定式结构"><span>外露固定结构</span></div>
+              <div class="g"><img src="assets/p01_x4331.jpg" alt="可拆卸软篷"><span>可拆卸软篷</span></div>
+              <div class="g"><img src="assets/p01_x4336.jpg" alt="外挂备胎"><span>外挂备胎</span></div>
+            </div>
+            <div class="pts" style="margin-top:8px">
+              <div class="pt"><span class="no">一</span><div class="tx"><b>标志性前脸</b><span>九孔格栅设计，辨识度拉满</span></div></div>
+              <div class="pt"><span class="no">二</span><div class="tx"><b>复古灯组</b><span>暖黄色经典光源，氛围感拉满</span></div></div>
+              <div class="pt"><span class="no">三</span><div class="tx"><b>硬朗细节</b><span>方盒子造型，清晰机械拼接感</span></div></div>
+              <div class="pt"><span class="no">四</span><div class="tx"><b>经典元素</b><span>帆布顶可拆，尾部外挂备胎</span></div></div>
+            </div>
+            <div class="pfoot"><span>原汁原味军车风</span><span class="pn">Ⅴ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第6页 内饰体验 ===== -->
+      <section class="page" data-i="5">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">03 · 内饰体验 <span class="en">INTERIOR</span></div>
+            <h1 class="h1">复古与实用兼顾</h1>
+            <div class="sqrow" style="margin-top:9px">
+              <div class="im"><img src="assets/p01_x4333.jpg" alt="驾驶舱整体"></div>
+              <div class="im"><img src="assets/p01_x4305.jpg" alt="复古仪表台"></div>
+            </div>
+            <div class="pts" style="margin-top:8px">
+              <div class="pt"><span class="no">一</span><div class="tx"><b>复古仪表台</b><span>保留原始机械质感</span></div></div>
+              <div class="pt"><span class="no">二</span><div class="tx"><b>三辐方向盘</b><span>经典造型，握感扎实</span></div></div>
+              <div class="pt"><span class="no">三</span><div class="tx"><b>机械档把</b><span>手动操控，驾驶乐趣拉满</span></div></div>
+              <div class="pt"><span class="no">四</span><div class="tx"><b>防水座椅</b><span>耐磨耐用，适合户外使用</span></div></div>
+              <div class="pt"><span class="no">五</span><div class="tx"><b>优化升级</b><span>舒适性与耐用性全面提升</span></div></div>
+            </div>
+            <div class="pfoot"><span>保留原始机械质感，优化乘坐体验</span><span class="pn">Ⅵ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第7页 六大版本 ===== -->
+      <section class="page dark" data-i="6">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">04 · 六大版本 <span class="en">SIX TRIM LEVELS</span></div>
+            <h1 class="h1" style="font-size:22px">六大版本，覆盖所有使用需求</h1>
+            <table class="tbl">
+              <colgroup><col style="width:21%"><col style="width:12%"><col style="width:35%"><col style="width:32%"></colgroup>
+              <thead><tr><th>版本类型</th><th>驱动</th><th>核心特点</th><th>适合人群</th></tr></thead>
+              <tbody>
+                <tr><td><b>纯电版</b></td><td>后驱</td><td>零油耗、低噪音、易维护</td><td>景区代步、日常通勤、拍照道具</td></tr>
+                <tr><td><b>油电两用</b></td><td>后驱</td><td>续航无忧、可油可电</td><td>景区运营、短途通勤、长途无焦虑</td></tr>
+                <tr><td><b>燃油旧机器</b></td><td>后驱</td><td>原汁原味、机械情怀、声浪复古</td><td>情怀玩家、收藏爱好者</td></tr>
+                <tr><td><b>燃油新机后驱</b></td><td>后驱</td><td>性能稳定、故障率低、省心耐用</td><td>高频使用、追求可靠性</td></tr>
+                <tr><td><b>燃油新机四驱</b></td><td>四驱</td><td>越野能力强、可玩性高</td><td>越野玩家、户外爱好者</td></tr>
+                <tr><td><b>无动力版</b></td><td>—</td><td>静态展示、摆件道具、不可行驶</td><td>门店引流、影视道具、收藏装饰</td></tr>
+              </tbody>
+            </table>
+            <div class="pfoot"><span>总有一款适合你</span><span class="pn">Ⅶ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第8页 纯电/油电两用 ===== -->
+      <section class="page" data-i="7">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">05 · 纯电 / 油电两用版 <span class="en">EV &amp; HYBRID</span></div>
+            <h1 class="h1" style="font-size:22px">安静好开，运营成本极低</h1>
+            <div class="h2" style="font-size:14px;margin:10px 0 0">纯电版（三个续航可选）</div>
+            <table class="tbl">
+              <colgroup><col style="width:31%"><col style="width:22%"><col style="width:23%"><col style="width:24%"></colgroup>
+              <thead><tr><th>版本</th><th>续航</th><th>充电</th><th>价格</th></tr></thead>
+              <tbody>
+                <tr><td><b>畅行版</b><span class="c">3.12 度电</span></td><td>40km</td><td>约 6 小时</td><td>¥40,000</td></tr>
+                <tr><td><b>悦行版</b><span class="c">9.6 度电</span></td><td>120km</td><td>约 4.5 小时</td><td>¥45,000</td></tr>
+                <tr><td><b>远途版</b><span class="c">18 度电</span></td><td>220km</td><td>约 4.5 小时</td><td>¥52,000</td></tr>
+              </tbody>
+            </table>
+            <p class="lead" style="font-size:11.5px;margin-top:8px">专属定制 <b>2500W 高功率电机</b> + 专属电控管理系统，每公里电费低至 4 分钱。</p>
+            <div class="h2" style="font-size:14px;margin:9px 0 0">油电两用版 <b style="color:var(--olive)">¥43,000</b></div>
+            <div class="two" style="margin-top:7px;gap:8px">
+              <div class="col"><div class="ct" style="font-size:11px">纯电续航</div><div class="cl" style="font-size:11px">40km，景区内安静行驶</div></div>
+              <div class="col"><div class="ct" style="font-size:11px">综合续航</div><div class="cl" style="font-size:11px">满油满电 640km</div></div>
+              <div class="col"><div class="ct" style="font-size:11px">油箱配置</div><div class="cl" style="font-size:11px">3.6L 主油箱 + 20L 备用副油箱</div></div>
+              <div class="col"><div class="ct" style="font-size:11px">百公里油耗</div><div class="cl" style="font-size:11px">仅 3.6L，运营成本极低</div></div>
+            </div>
+            <div class="pfoot"><span>景区运营、日常代步的理想选择</span><span class="pn">Ⅷ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第9页 纯燃油后驱 ===== -->
+      <section class="page dark" data-i="8">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">05 · 版本详解 <span class="en">MODEL LINEUP</span></div>
+            <h1 class="h1" style="font-size:22px">机械情怀之选：纯燃油后驱版</h1>
+            <div class="two" style="margin-top:10px;gap:10px">
+              <div class="col" style="background:rgba(241,232,210,.05);border:1px solid rgba(241,232,210,.12);border-radius:6px;padding:9px 10px">
+                <div class="ct" style="color:#F1E8D2">旧机器款 <span style="color:var(--gold-soft);margin-left:auto;font-size:14px">¥42,000</span></div>
+                <div class="cl"><b style="color:#F8F1DE">原汁原味</b><br>1.2L 拆车发动机（东安 / 长安 / 五菱等随机）；30L 主油箱 + 20L 副油桶；约 100km/h；最低 5.5L/百公里，经济续航 462km，极限 680km</div>
+                <div class="cl" style="margin-top:5px">启动声浪、换挡手感都有老车味道，适合追求纯粹情怀的玩家。</div>
+              </div>
+              <div class="col" style="background:rgba(241,232,210,.05);border:1px solid rgba(241,232,210,.12);border-radius:6px;padding:9px 10px">
+                <div class="ct" style="color:#F1E8D2">全新机器款 <span style="color:var(--gold-soft);margin-left:auto;font-size:14px">¥52,000</span></div>
+                <div class="cl"><b style="color:#F8F1DE">省心耐用</b><br>1.2L 四缸 62 马力（可选柳州五菱 / 福迪全新机器）；30L 主油箱 + 20L 副油桶；约 100km/h；最低 5.5L/百公里，经济续航 545km，极限 909km</div>
+                <div class="cl" style="margin-top:5px">启动顺畅、维修方便、配件通用，保留手动操控感，适合高频使用。</div>
+              </div>
+            </div>
+            <div class="im" style="height:86px;margin-top:9px"><img src="assets/p01_x4316.jpg" alt="威利斯吉普车局部"><span class="cap">两个版本共享同一经典威利斯车身，仅动力不同</span></div>
+            <div class="pfoot"><span>外观与所有版本统一 · BODY SHARED</span><span class="pn">Ⅸ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第10页 纯燃油四驱 ===== -->
+      <section class="page dark" data-i="9">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">05 · 版本详解 <span class="en">MODEL LINEUP</span></div>
+            <h1 class="h1" style="font-size:22px">硬核玩家之选：纯燃油四驱版</h1>
+            <div class="im" style="height:128px;margin-top:10px"><img src="assets/p01_x4330.jpg" alt="威利斯吉普车在户外道路行驶"><span class="cap">性能旗舰 · 真正能越野的复刻威利斯</span></div>
+            <div class="metrics" style="margin-top:9px">
+              <div class="metric"><div class="k">售价 / PRICE</div><div class="v">¥72,000</div></div>
+              <div class="metric"><div class="k">动力 / ENGINE</div><div class="v">1.2L 四缸<small>62 马力</small></div></div>
+            </div>
+            <div class="pts" style="margin-top:7px">
+              <div class="pt"><span class="no">一</span><div class="tx"><b>分时四驱系统</b><span>两驱 / 四驱可切换，与原厂威利斯MB马力一致</span></div></div>
+              <div class="pt"><span class="no">二</span><div class="tx"><b>油耗与续航</b><span>两驱 5.5L/百公里，经济续航 545km；四驱 8.5L/百公里；极限 909km</span></div></div>
+              <div class="pt"><span class="no">三</span><div class="tx"><b>油箱配置</b><span>30L 主油箱 + 20L 备用副油桶 · 最高时速约 100km/h</span></div></div>
+              <div class="pt"><span class="no">四</span><div class="tx"><b>改装潜力大</b><span>兼顾日常驾驶与户外穿越，越野通过能力强</span></div></div>
+            </div>
+            <div class="pfoot"><span>READY FOR TRAILS AND ADVENTURES</span><span class="pn">Ⅹ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第11页 无动力版 ===== -->
+      <section class="page" data-i="10">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">05 · 版本详解 <span class="en">MODEL LINEUP</span></div>
+            <h1 class="h1" style="font-size:22px">收藏展示之选：无动力版</h1>
+            <div class="im" style="height:126px;margin-top:10px"><img src="assets/p01_x4323.jpg" alt="威利斯吉普车在咖啡馆门口展示"><span class="cap">咖啡馆门口实景展示效果</span></div>
+            <div class="metrics" style="margin-top:9px">
+              <div class="metric"><div class="k">售价 / PRICE</div><div class="v">¥33,000</div></div>
+              <div class="metric"><div class="k">定位 / TYPE</div><div class="v">入门摆件款</div></div>
+            </div>
+            <div class="pts" style="margin-top:7px">
+              <div class="pt"><span class="no">一</span><div class="tx"><b>无动力系统</b><span>不可行驶，纯观赏价值</span></div></div>
+              <div class="pt"><span class="no">二</span><div class="tx"><b>1:1 完全一致</b><span>外观内饰与可行驶版本完全一致</span></div></div>
+              <div class="pt"><span class="no">三</span><div class="tx"><b>无需保养</b><span>买回去摆着就行，哪里都是吸睛亮点</span></div></div>
+            </div>
+            <div class="tags" style="margin-top:7px">
+              <span class="tag">门店引流打卡</span><span class="tag">影视直播道具</span><span class="tag">主题场所装饰</span><span class="tag">个人收藏展会</span>
+            </div>
+            <div class="pfoot"><span>低门槛拥有，陈列即风景</span><span class="pn">Ⅺ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第12页 应用场景 ===== -->
+      <section class="page" data-i="11">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">06 · 应用场景 <span class="en">APPLICATIONS</span></div>
+            <h1 class="h1" style="font-size:22px">面向国防教育与文旅项目</h1>
+            <div class="im" style="height:112px;margin-top:10px"><img src="assets/p01_x4325.jpg" alt="威利斯吉普车在户外场地"><span class="cap">园区、营地、展馆的理想展陈用车</span></div>
+            <div class="pts" style="margin-top:7px">
+              <div class="pt"><span class="no">一</span><div class="tx"><b>国防教育基地 / 人武部</b><span>国防教育展示用车</span></div></div>
+              <div class="pt"><span class="no">二</span><div class="tx"><b>红色研学实践基地</b><span>中小学生营地、青少年国防教育体验</span></div></div>
+              <div class="pt"><span class="no">三</span><div class="tx"><b>红色文旅景区</b><span>军事主题小镇、城投文旅项目配套用车</span></div></div>
+              <div class="pt"><span class="no">四</span><div class="tx"><b>纪念馆 / 博物馆</b><span>革命纪念馆、军史馆展陈用车</span></div></div>
+              <div class="pt"><span class="no">五</span><div class="tx"><b>俱乐部与基地</b><span>越野团建、拓展 / 真人CS场地配套</span></div></div>
+            </div>
+            <div class="pfoot"><span>专注服务国防教育与红色文旅场景</span><span class="pn">Ⅻ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第13页 工艺品质 ===== -->
+      <section class="page dark" data-i="12">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">07 · 工艺品质 <span class="en">CRAFT &amp; QUALITY</span></div>
+            <h1 class="h1" style="font-size:22px">工艺与品质保障</h1>
+            <div class="im" style="height:96px;margin-top:9px"><img src="assets/p01_x4295.jpg" alt="整车车身工艺处理"><span class="cap">整车全钢结构 · 防锈涂层 · 多层汽车级烤漆</span></div>
+            <div class="pts" style="margin-top:6px">
+              <div class="pt"><span class="no">车</span><div class="tx"><b>车身工艺</b><span>高品质国标钢材，激光精准下料，焊接结构坚固，整车防锈涂层处理</span></div></div>
+              <div class="pt"><span class="no">保</span><div class="tx"><b>核心部件质保</b><span>不同动力版本对应专属质保政策，发动机 / 电机核心部件保修，易损件纳入正常售后范围</span></div></div>
+              <div class="pt"><span class="no">运</span><div class="tx"><b>物流与售后</b><span>配件长期稳定供应，远程技术支持与维修指导，回头车 / 顺路车发运运费更优惠</span></div></div>
+            </div>
+            <div class="pfoot"><span>真材实料，买得放心 · BUILT TO LAST</span><span class="pn">ⅩⅢ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第14页 配置定制 ===== -->
+      <section class="page" data-i="13">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">07 · 配置定制 <span class="en">CONFIGURATION</span></div>
+            <h1 class="h1" style="font-size:22px">可选配置与定制服务</h1>
+            <div class="h2" style="font-size:14px;margin:11px 0 0">颜色定制 / PAINT COLORS</div>
+            <div class="colors" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+              <div class="ci"><i style="background:#2E4A36"></i><span>经典军绿</span></div>
+              <div class="ci"><i style="background:#B09A63"></i><span>沙漠黄</span></div>
+              <div class="ci"><i style="background:#3E5A3C"></i><span>英军绿</span></div>
+              <div class="ci"><i style="background:#1E3524"></i><span>深军绿</span></div>
+              <div class="ci"><i style="background:#2A2D28"></i><span>哑光黑</span></div>
+              <div class="ci"><i style="background:#D9CFB4"></i><span>复古米白</span></div>
+              <div class="ci"><i style="background:#4A5A3A"></i><span>迷彩绿</span></div>
+            </div>
+            <p class="lead" style="font-size:11.5px;margin-top:8px">标配经典军绿，另有多种原厂色可选，也支持<b>按客户指定色号定制喷漆</b>，打造专属车身配色。</p>
+            <div class="im" style="height:92px;margin-top:8px"><img src="assets/p01_x4335.jpg" alt="车身印花定制"><span class="cap">车身印花定制示例</span></div>
+            <div class="h2" style="font-size:14px;margin:9px 0 0">选装附件 / ACCESSORIES</div>
+            <div class="tags" style="margin-top:6px">
+              <span class="tag">警报喇叭</span><span class="tag">装饰绞盘</span><span class="tag">机枪+枪架</span><span class="tag">软顶篷</span><span class="tag">车身印花</span><span class="tag">装饰电台</span><span class="tag">溢水壶</span><span class="tag">黄标牌</span><span class="tag">子弹箱</span><span class="tag">密封桶</span><span class="tag">灭火器</span><span class="tag">卡宾枪架</span><span class="tag">拖挂车</span><span class="tag">音箱套装</span><span class="tag">专用脚垫</span>
+            </div>
+            <div class="pfoot"><span>全部选装件支持单独选配</span><span class="pn">ⅩⅣ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第15页 选装配件·外观 ===== -->
+      <section class="page dark" data-i="14">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">07 · 选装配件 1/3 <span class="en">EXTERIOR ACCESSORIES</span></div>
+            <h1 class="h1" style="font-size:21px">外观类选装配件</h1>
+            <div class="im" style="height:auto;aspect-ratio:16/9;margin-top:9px"><img src="assets/page15_render.jpg" alt="外观类选装配件展示" style="object-fit:contain"></div>
+            <div class="pts" style="margin-top:8px">
+              <div class="pt"><span class="no">一</span><div class="tx"><b>装饰绞盘 / WINCH</b><span>车头安装，硬核视觉</span></div></div>
+              <div class="pt"><span class="no">二</span><div class="tx"><b>装饰机枪 + 枪架</b><span>经典军武造型元素</span></div></div>
+              <div class="pt"><span class="no">三</span><div class="tx"><b>软顶防水夹胶篷</b><span>可拆可装，遮风挡雨</span></div></div>
+              <div class="pt"><span class="no">四</span><div class="tx"><b>高音警报喇叭 / 黄标牌 / 溢水壶</b><span>氛围细节一步到位</span></div></div>
+            </div>
+            <div class="pfoot"><span>详情与实拍见工厂配件页</span><span class="pn">ⅩⅤ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第16页 选装配件·内饰与情怀 ===== -->
+      <section class="page dark" data-i="15">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">07 · 选装配件 2/3 <span class="en">INTERIOR &amp; DETAIL</span></div>
+            <h1 class="h1" style="font-size:21px">内饰与情怀类选装配件</h1>
+            <div class="im" style="height:auto;aspect-ratio:16/9;margin-top:9px"><img src="assets/page16_render.jpg" alt="内饰与情怀类选装配件展示" style="object-fit:contain"></div>
+            <div class="pts" style="margin-top:8px">
+              <div class="pt"><span class="no">一</span><div class="tx"><b>木制子弹箱 / 防水密封桶</b><span>道具与储物两用</span></div></div>
+              <div class="pt"><span class="no">二</span><div class="tx"><b>车载灭火器 / 卡宾枪展示架</b><span>细节还原到位</span></div></div>
+              <div class="pt"><span class="no">三</span><div class="tx"><b>威利斯复刻拖挂车</b><span>出街气场加倍</span></div></div>
+              <div class="pt"><span class="no">四</span><div class="tx"><b>Hi-Fi 音箱 / 电台 / 脚垫</b><span>情怀与实用兼得</span></div></div>
+            </div>
+            <div class="pfoot"><span>全部选装件支持单独选配</span><span class="pn">ⅩⅥ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第17页 购车流程 ===== -->
+      <section class="page" data-i="16">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">08 · 购车流程 <span class="en">PURCHASE PROCESS</span></div>
+            <h1 class="h1" style="font-size:22px">购车流程与交易说明</h1>
+            <div class="steps" style="margin-top:9px">
+              <div class="step"><span class="n">1</span><div class="s"><b>咨询选车</b><span>CONSULT</span></div></div>
+              <div class="step"><span class="n">2</span><div class="s"><b>支付定金</b><span>DEPOSIT · 收到定金启动生产</span></div></div>
+              <div class="step"><span class="n">3</span><div class="s"><b>生产备货</b><span>BUILD</span></div></div>
+              <div class="step"><span class="n">4</span><div class="s"><b>验车发运</b><span>DELIVERY · 支持现场提车或视频连线验车</span></div></div>
+            </div>
+            <div class="two" style="margin-top:9px;gap:9px">
+              <div class="col"><div class="ct">付款说明</div><div class="cl">支付车款 50% 作为定金；车辆完工验车后，发货前一次性付清余款。</div></div>
+              <div class="col"><div class="ct">交付说明</div><div class="cl">货款收到检查后即可发运；定制款周期与销售一对一确认。</div></div>
+              <div class="col"><div class="ct">其他说明</div><div class="cl">运费客户承担、支持到付；普票加收 3% 服务费，专票加收 5% 服务费。</div></div>
+              <div class="col"><div class="ct">专属服务</div><div class="cl">全程专属客服一对一对接。</div></div>
+            </div>
+            <div class="pfoot"><span>四通文化创意工厂 · 更专业的复刻车辆制造商</span><span class="pn">ⅩⅦ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第18页 常见问题 ===== -->
+      <section class="page" data-i="17">
+        <div class="face front">
+          <div class="pad">
+            <div class="sec-tag">08 · 购车指南 <span class="en">FAQ</span></div>
+            <h1 class="h1" style="font-size:22px">常见问题解答</h1>
+            <div class="qa" style="margin-top:8px">
+              <div class="q"><span class="m">Q</span><div class="t"><b>这车上牌照吗？</b><p>本车为国防教育基地、红色文旅景区内部场地专用车辆，在园区内部道路行驶使用。</p></div></div>
+              <div class="q"><span class="m">Q</span><div class="t"><b>质量和原版车比怎么样？</b><p>外观 1:1 复刻经典威利斯MB神韵，采用现代全钢车身工艺，结构强度、防锈防腐、驾驶稳定性全面超越二战时期原厂老车。</p></div></div>
+              <div class="q"><span class="m">Q</span><div class="t"><b>保养维修方便吗？</b><p>燃油版采用市面通用成熟动力，大小修车店均可买到配件；纯电版常用配件本地可购，特殊配件工厂售后团队一对一寄送。</p></div></div>
+              <div class="q"><span class="m">Q</span><div class="t"><b>交付周期多久？</b><p>现车款可较快交付，定制款根据配置详谈交付时间。</p></div></div>
+            </div>
+            <div class="pfoot"><span>还有其他疑问？欢迎随时联系我们</span><span class="pn">ⅩⅧ</span></div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+      <!-- ===== 第19页 联系我们 ===== -->
+      <section class="page end" data-i="18">
+        <div class="face front">
+          <div class="pad">
+            <div class="e-logo">SINCE 1941 · 四通文化创意工厂</div>
+            <div class="e-t">经典永不落幕，<br>期待与您同行</div>
+            <div class="e-s">1:1 复刻威利斯吉普车 · 产品系列</div>
+            <div class="contact-box">
+              <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span><b>联系电话 / 微信</b>15010525903</span></div>
+              <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg><span><b>工厂地址</b>河北省张家口市蔚县祁家皂工业园区一区101号</span></div>
+              <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg><span><b>欢迎来厂看车试驾</b>一对一为您详细解答</span></div>
+            </div>
+            <div class="e-foot">THANK YOU FOR WATCHING · 1941 - NOW</div>
+          </div>
+        </div>
+        <div class="face back"><div class="bmark"><span class="w">WILLYS</span><span>1:1 SCALE SERIES</span></div></div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="hitl" id="hitLeft" aria-label="上一页" style="pointer-events:none"></div>
+<div class="hitr" id="hitRight" aria-label="下一页" style="pointer-events:none"></div>
+
+<div class="controls">
+  <div class="bar">
+    <button class="btn" id="prevBtn" aria-label="上一页"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="info">
+      <span class="pageno" id="pageNo">1<i> / 19</i></span>
+      <span class="track"><i id="trackBar"></i></span>
+    </div>
+    <button class="btn" id="nextBtn" aria-label="下一页"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<div class="hint" id="hint">
+  <div class="ring"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></div>
+  <span>轻触翻页</span>
+</div>
+<script>
+(function(){
+  "use strict";
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var N = pages.length;
+  var current = 0;
+  var animating = false;
+  var interacted = false;
+  var book = document.getElementById('book');
+  var hint = document.getElementById('hint');
+
+  var chaps = [
+    '封面 · COVER','目录 · CONTENTS','经典传承 · HERITAGE','产品概览 · OVERVIEW',
+    '外观细节 · EXTERIOR','内饰体验 · INTERIOR','六大版本 · TRIMS','纯电 / 油电两用 · EV',
+    '燃油后驱版 · RWD','燃油四驱版 · 4WD','无动力版 · STATIC','应用场景 · SCENES',
+    '工艺品质 · QUALITY','配置定制 · OPTIONS','外观配件 · ACCESSORIES','情怀配件 · ACCESSORIES',
+    '购车流程 · PURCHASE','常见问题 · FAQ','联系我们 · CONTACT'
+  ];
+
+  function updateUI(){
+    var pn = current + 1;
+    document.getElementById('pageNo').innerHTML = pn + '<i> / ' + N + '</i>';
+    document.getElementById('trackBar').style.width = (pn / N * 100) + '%';
+    document.getElementById('chapLabel').textContent = chaps[current] || '';
+    document.getElementById('prevBtn').disabled = current <= 0;
+    document.getElementById('nextBtn').disabled = current >= N - 1;
+  }
+
+  function flipNext(){
+    if (animating || current >= N - 1) return;
+    animating = true;
+    interacted = true;
+    var p = pages[current];
+    p.classList.add('turning', 'flip-shadow');
+    p.classList.remove('active');
+    p.classList.add('turned');
+    window.setTimeout(function(){
+      p.classList.remove('turning', 'flip-shadow');
+      current++;
+      pages[current].classList.add('active');
+      animating = false;
+      updateUI();
+    }, 740);
+    updateUI();
+  }
+
+  function flipPrev(){
+    if (animating || current <= 0) return;
+    animating = true;
+    interacted = true;
+    var p = pages[current - 1];
+    p.classList.add('turning', 'flip-shadow');
+    p.classList.remove('turned');
+    p.classList.add('active');
+    pages[current].classList.remove('active');
+    window.setTimeout(function(){
+      p.classList.remove('turning', 'flip-shadow');
+      current--;
+      animating = false;
+      updateUI();
+    }, 740);
+    updateUI();
+  }
+
+  function setState(target){
+    if (target < 0) target = 0;
+    if (target > N - 1) target = N - 1;
+    pages.forEach(function(p){
+      p.classList.remove('active', 'turned', 'turning', 'flip-shadow');
+      p.style.transitionDuration = '';
+    });
+    for (var i = 0; i < target; i++) pages[i].classList.add('turned');
+    pages[target].classList.add('active');
+    current = target;
+    updateUI();
+  }
+
+  function gotoPage(target){
+    if (animating) return;
+    if (target < 0) target = 0;
+    if (target > N - 1) target = N - 1;
+    if (target === current) return;
+    interacted = true;
+    setState(target);
+  }
+
+  /* 锚点直达：#page-5 → 第5页 */
+  function initFromHash(){
+    var m = (location.hash || '').match(/page-(\d+)/);
+    if (m){
+      var t = parseInt(m[1], 10) - 1;
+      if (t >= 0 && t < N){ setState(t); hint.classList.add('hide'); }
+    }
+  }
+  window.addEventListener('hashchange', function(){
+    var m = (location.hash || '').match(/page-(\d+)/);
+    if (m){ var t = parseInt(m[1], 10) - 1; gotoPage(t); }
+  });
+
+  /* 按钮 */
+  document.getElementById('prevBtn').addEventListener('click', function(e){ e.stopPropagation(); flipPrev(); });
+  document.getElementById('nextBtn').addEventListener('click', function(e){ e.stopPropagation(); flipNext(); });
+  document.getElementById('brandBtn').addEventListener('click', function(e){ e.stopPropagation(); gotoPage(0); });
+
+  /* 目录跳转 */
+  Array.prototype.forEach.call(document.querySelectorAll('.toc-item'), function(item){
+    function go(){ var t = parseInt(item.getAttribute('data-go'), 10) - 1; gotoPage(t); }
+    item.addEventListener('click', function(e){ e.stopPropagation(); go(); });
+    item.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); e.stopPropagation(); go(); }
+    });
+  });
+
+  /* 点击区域翻页：左侧1/3上一页，右侧1/3下一页 */
+  document.addEventListener('click', function(e){
+    if (e.target.closest('.toc-item')) return;
+    if (e.target.closest('.btn')) return;
+    if (e.target.closest('.brand')) return;
+    if (e.target.closest('.controls')) return;
+    var w = window.innerWidth;
+    var x = e.clientX;
+    if (x < w * 0.28) flipPrev();
+    else if (x > w * 0.68) flipNext();
+  });
+
+  /* 触摸滑动 */
+  var sx = 0, sy = 0;
+  document.addEventListener('touchstart', function(e){
+    if (e.target.closest('.toc-item') || e.target.closest('.btn') || e.target.closest('.brand')) return;
+    var t = e.touches[0];
+    sx = t.clientX; sy = t.clientY;
+  }, { passive: true });
+  document.addEventListener('touchmove', function(e){
+    if (!sx) return;
+    var t = e.touches[0];
+    var dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.35){
+      if (dx < 0) flipNext(); else flipPrev();
+      sx = 0;
+    }
+  }, { passive: true });
+  document.addEventListener('touchend', function(){ sx = 0; }, { passive: true });
+
+  /* 键盘 */
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft') flipPrev();
+    else if (e.key === 'ArrowRight') flipNext();
+  });
+
+  /* 开场：封面停留后自动翻开 */
+  var openTimer = window.setTimeout(function(){
+    if (interacted || current !== 0) return;
+    flipNext();
+    hint.classList.add('hide');
+  }, 3200);
+
+  /* 用户手动翻页后隐藏提示 */
+  function hideHint(){ if (hint) hint.classList.add('hide'); }
+  document.addEventListener('click', hideHint);
+  document.addEventListener('touchstart', hideHint, { passive: true });
+
+  /* 尘土粒子背景 */
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canvas = document.getElementById('dust');
+  if (canvas && !reduced){
+    var ctx = canvas.getContext('2d');
+    var W, H, parts = [];
+    function resize(){
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    var count = W < 768 ? 22 : 40;
+    for (var i = 0; i < count; i++){
+      parts.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 0.5 + Math.random() * 1.7,
+        vx: -0.08 - Math.random() * 0.22,
+        vy: -0.05 - Math.random() * 0.14,
+        a: 0.08 + Math.random() * 0.22
+      });
+    }
+    function frame(){
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < parts.length; i++){
+        var p = parts[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -10) p.x = W + 10;
+        if (p.y < -10) p.y = H + 10;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(217,199,157,' + p.a + ')';
+        ctx.fill();
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* 初始化 */
+  initFromHash();
+  if (current === 0) pages[0].classList.add('active');
+  updateUI();
+})();
+</script>
+</body>
+</html>
